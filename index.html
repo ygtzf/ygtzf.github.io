@@ -1,65 +1,42 @@
 ---
-layout: default
+layout: page
+description: "Boilerplate of Hux Blog"
 ---
 
-
-
-<!-- One -->
-    <section id="one">
-        <div class="container">
-            <header class="major">
-                <h2>ygt</h2>
-                <p> YGT: 1111111111 </p>
-            </header>
-            <p> YGT: 22222222222222222 </p>
+{% for post in paginator.posts %}
+<div class="post-preview">
+    <a href="{{ post.url | prepend: site.baseurl }}">
+        <h2 class="post-title">
+            {{ post.title }}
+        </h2>
+        {% if post.subtitle %}
+        <h3 class="post-subtitle">
+            {{ post.subtitle }}
+        </h3>
+        {% endif %}
+        <div class="post-content-preview">
+            {{ post.content | strip_html | truncate:200 }}
         </div>
-    </section>
+    </a>
+    <p class="post-meta">
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
+    </p>
+</div>
+<hr>
+{% endfor %}
 
-<!-- Two
-    <section id="two">
-        <div class="container">
-            <h3>Go fighting</h3>
-            <p> YGT: 3333333333333333333333  </p>
-            <ul class="feature-icons">
-                <li class="fa-code">Write all the code</li>
-                <li class="fa-cubes">Stack small boxes</li>
-                <li class="fa-book">Read books and stuff</li>
-                <li class="fa-coffee">Drink much coffee</li>
-                <li class="fa-bolt">Lightning bolt</li>
-                <li class="fa-users">Shadow clone technique</li>
-            </ul>
-        </div>
-    </section>
--->
-
-<!-- Three
-    <section id="three">
-        <div class="container">
-            <h3>A Few Accomplishments</h3>
-            <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer. Integer eu ante ornare amet commetus.</p>
-            <div class="features">
-                <article>
-                    <a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-                    <div class="inner">
-                        <h4>Possibly broke spacetime</h4>
-                        <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
-                    </div>
-                </article>
-                <article>
-                    <a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
-                    <div class="inner">
-                        <h4>Terraformed a small moon</h4>
-                        <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
-                    </div>
-                </article>
-                <article>
-                    <a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
-                    <div class="inner">
-                        <h4>Snapped dark matter in the wild</h4>
-                        <p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
--->
+<!-- Pager -->
+{% if paginator.total_pages > 1 %}
+<ul class="pager">
+    {% if paginator.previous_page %}
+    <li class="previous">
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+    </li>
+    {% endif %}
+    {% if paginator.next_page %}
+    <li class="next">
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+    </li>
+    {% endif %}
+</ul>
+{% endif %}
