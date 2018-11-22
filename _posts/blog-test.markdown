@@ -7,6 +7,7 @@ author:     "Ygt"
 header-img: "img/contact-bg.jpg"
 tags:
     - Hello
+---
 
 # Hello, here is blog of yaoguotao .
 
