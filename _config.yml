@@ -5,7 +5,7 @@ header-img: img/home-bg.jpg
 email: yaoguot@gmail.com
 description: ""
 keyword: ""
-url: "https://ygtzf.github.io"              # your host, for absolute URL
+url: "http://ygtzf.github.io"              # your host, for absolute URL
 baseurl: "/ygtzf.github.io"         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
@@ -88,5 +88,3 @@ friends: [
         href: "#"
     }
 ]
-
-theme: jekyll-theme-minimal
