@@ -5,14 +5,14 @@ header-img: img/home-bg.jpg
 email: yaoguot@gmail.com
 description: ""
 keyword: ""
-url: "http://ygtzf.github.io"              # your host, for absolute URL
+url: "https://ygtzf.github.io"              # your host, for absolute URL
 baseurl: "/ygtzf.github.io"         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 
 # SNS settings
 RSS: false
-github_username:    ygtzf
+github_username: ygtzf
 
 
 
