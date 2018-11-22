@@ -1,10 +1,10 @@
 ---
 layout:     post
 title:      "Welcome to Ygt Blog"
-subtitle:   " \"Hello World, Hello Blog\""
+subtitle:   " Hello, The First Blog"
 date:       2018-11-22 10:00:00
 author:     "Ygt"
-header-img: "img/post-bg-2015.jpg"
+header-img: "img/contact-bg.jpg"
 tags:
     - Hello
 
