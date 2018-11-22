@@ -64,8 +64,8 @@ ga_domain: YGT:TODO
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "YGT: TODO"
-sidebar-avatar: /img/y.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-about-description: "专心一点 冷静一点 善待一切"
+sidebar-avatar: /img/ygt.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
