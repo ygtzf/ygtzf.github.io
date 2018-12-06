@@ -162,15 +162,101 @@ mkdir /var/www/html/nextcloud/data
 ```
 
 * 配置nextcloud数据存储使用S3接口+RGW
-数据存储使用S3不用删除掉nextcloud使用本地存储的配置，用户进入nextcloud账户后，默认进去的是data目录，上传后，
+数据存储使用S3不用删除掉nextcloud使用本地存储的配置，用户进入nextcloud账户后，默认进去的是data目录，但是上传文件的时候，还是会将文件保存在RGW中。  
+**前提：** 先部署好Ceph和RGW，保证可以使用S3 client来上传文件到RGW中。
 
-```shell
+    ```shell
+    在nextcloud配置文件中增加：
+      'objectstore' => array(
+            'class' => 'OC\\Files\\ObjectStore\\S3',
+            'arguments' => array(
+                    'bucket' => 'nextcloud',
+                    'autocreate' => true,
+                    'key'    => '7QG3884EQ9G9X4JCC5W6',
+                    'secret' => 'QAb5u9xDEPYSF21etgg8O3vtzyuAVjix2mRxpjQn',
+                    'hostname' => '10.10.8.7',
+                    'port' => 7480,
+                    'use_ssl' => false,
+                    'region' => 'optional',
+                    // required for some non Amazon S3 implementations
+                    'use_path_style'=>true
+            ),
+      ),
+    ```
 
-```
+我们来对上面需要改动的参数做一下解释：
+`bucket`对应RGW中的bucket，
+`autocreate`: true表示如果没有该bucket，就创建；false表示如果没有该bucket，也不创建。
+`key`: S3 client的key
+`secret`: S3 client的secret
+`hostnmae`： RGW地址
+`port`: RGW端口，默认就是7480
+`use_ssl`: RGW访问是否使用ssl
+`region`：*这个还不清楚对应的RGW的real？zonegroup？zone*，那就用默认的optional
 
 
 * 重启httpd服务
 
 ```shell
 systemctl restart httpd
+```
+
+到这里，就可以通过web访问了，体验一下私有网盘，和常用的网盘有什么不同。
+
+**TODO：** 贴几张搭建的网盘截图。
+
+
+### 附：
+nextcloud配置文件内容：
+```php
+<?php
+$CONFIG = array (
+  'instanceid' => 'oc33jbvw405p',
+  "log_type" => "owncloud",
+  "logfile" => "nextcloud.log",
+  "loglevel" => "3",
+  "logdateformat" => "F d, Y H:i:s",
+  'memcache.distributed' => '\\OC\\Memcache\\Redis',
+  'memcache.locking' => '\\OC\\Memcache\\Redis',
+  'memcache.local' => '\\OC\\Memcache\\APCu',
+  'redis' => 
+  array (
+    'host' => 'localhost',
+    'port' => 6379,
+  ),
+  'passwordsalt' => '7SdDEWVjYLWeC05rYDcV8tK1yshwo9',
+  'secret' => 'mHEmK9GTvQNXHi2J4o55cV9xtb2VT1Xdwo6PrNRzkuxATWO1',
+  'trusted_domains' => 
+  array (
+    0 => '192.168.32.207',
+  ),
+  'datadirectory' => '/var/www/html/hualala/data',
+  'dbtype' => 'mysql',
+  'version' => '14.0.4.2',
+  'overwrite.cli.url' => 'http://localhost',
+  'dbname' => 'nextcloud',
+  'dbhost' => 'localhost',
+  'dbport' => '',
+  'dbtableprefix' => 'oc_',
+  'dbuser' => 'oc_admin',
+  'dbpassword' => 'c2nZn+kvya6UeXcjo+jtYuOe3gIqeO',
+  'installed' => true,
+  'objectstore' => array(
+        'class' => 'OC\\Files\\ObjectStore\\S3',
+        'arguments' => array(
+                'bucket' => 'nextcloud',
+                'autocreate' => true,
+                'key'    => '7QG3884EQ9G9X4JCC5W6',
+                'secret' => 'QAb5u9xDEPYSF21etgg8O3vtzyuAVjix2mRxpjQn',
+                'hostname' => '10.10.8.7',
+                'port' => 7480,
+                //'use_ssl' => true,
+                'use_ssl' => false,
+                //'region' => 'default',
+                'region' => 'optional',
+                // required for some non Amazon S3 implementations
+                'use_path_style'=>true
+        ),
+  ),
+);
 ```
