@@ -19,6 +19,7 @@ yum install -y epel-release yum-utils unzip curl wget bash-completion policycore
 
 * 安装配置httpd
 ```shell
+
 yum install httpd
 
 # 创建配置文件
@@ -46,9 +47,11 @@ systemctl start httpd
 
 * 安装PHP相关包
 ```shell
+
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 yum install -y php72w php72w-cli php72w-common php72w-curl php72w-gd php72w-mbstring php72w-mysqlnd php72w-process php72w-xml php72w-zip php72w-opcache php72w-pecl-apcu php72w-intl php72w-pecl-redis
+
 ```
 
 * 安装数据库
