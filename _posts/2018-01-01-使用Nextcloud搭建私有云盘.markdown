@@ -13,13 +13,14 @@ Nextcloud是开源的一套个人及企业私有网盘方案，是Owncloud的升
 下面简单记录一下Nextcloud的搭建。
 
 * 安装基础依赖包
+
 ```shell
 yum install -y epel-release yum-utils unzip curl wget bash-completion policycoreutils-python mlocate bzip2
 ```
 
 * 安装配置httpd
-```shell
 
+```shell
 yum install httpd
 
 # 创建配置文件
@@ -42,10 +43,10 @@ systemctl enable httpd
 
 # 启动httpd服务
 systemctl start httpd
-
 ```
 
 * 安装PHP相关包
+
 ```shell
 
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
@@ -55,6 +56,7 @@ yum install -y php72w php72w-cli php72w-common php72w-curl php72w-gd php72w-mbst
 ```
 
 * 安装数据库
+
 ```shell
 yum install -y mariadb mariadb-server
 
@@ -68,6 +70,7 @@ systemctl start mariadb
 * 下载安装nextcloud包
 可以去nextcloud download页面找相应的包： https://nextcloud.com/install  
 提示： 因网络环境不同，下载速度不一，建议提前下载，准备好该包。
+
 ```shell
 wget https://download.nextcloud.com/server/releases/nextcloud-14.0.4.zip
 
@@ -87,6 +90,7 @@ chown apache:apache /var/www/html/nextcloud/ -R
 
 * 安装redis
 redis主要用来做nextcloud的缓存，也可以选择其他的来缓存，比如memcache等。
+
 ```shell
 yum install redis
 
@@ -98,6 +102,7 @@ systemctl start redis
 ```
 
 * 配置nextcloud使用redis
+
 ```shell
 vim /var/www/html/nextcloud/config/config.php
 
@@ -112,6 +117,7 @@ vim /var/www/html/nextcloud/config/config.php
 ```
 
 * 配置mysql数据库
+
 ```shell
 # 切换到nextcloud目录
 cd /var/www/html/nextcloud/
@@ -130,6 +136,7 @@ MariaDB [mysql]> FLUSH PRIVILEGES;
 ```
 
 * 配置nextcloud使用mysql
+
 ```shell
 # 在/var/www/html/nextcloud/config/config.php中增加如下配置：
 'dbtype' => 'mysql',
@@ -145,6 +152,7 @@ MariaDB [mysql]> FLUSH PRIVILEGES;
 ```
 
 * 配置nextcloud数据目录
+
 ```shell
 # 在nextcloud配置文件中增加：
 'datadirectory' => '/var/www/html/nextcloud/data',
@@ -162,6 +170,7 @@ mkdir /var/www/html/nextcloud/data
 
 
 * 重启httpd服务
+
 ```shell
 systemctl restart httpd
 ```
